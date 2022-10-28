@@ -25,7 +25,7 @@ jobs:
       - name: Build Docs
         run: redoc-cli build ./apis/gin/docs/swagger.yaml --output ./apis/gin/docs/index.html --title "Hello World API"
       - name: Deploy GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.0
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           token: ${{ secrets.GH_PAGES_TOKEN }}
           branch: gh-pages

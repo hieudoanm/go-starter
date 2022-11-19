@@ -1,0 +1,140 @@
+basePath: /
+consumes:
+  - application/json
+definitions:
+  ErrorResponse:
+    x-go-package: gin-starter
+  HelloResponse:
+    x-go-package: gin-starter
+host: localhost:8080
+info:
+  title: 'Gin Starter:'
+  version: 0.0.1
+paths:
+  /:
+    delete:
+      description: Delete
+      operationId: Delete
+      responses:
+        '200':
+          description: HelloResponse
+          schema:
+            $ref: '#/definitions/HelloResponse'
+        '400':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    get:
+      description: Get
+      operationId: Get
+      responses:
+        '200':
+          description: HelloResponse
+          schema:
+            $ref: '#/definitions/HelloResponse'
+        '400':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    patch:
+      description: Patch
+      operationId: Patch
+      responses:
+        '200':
+          description: HelloResponse
+          schema:
+            $ref: '#/definitions/HelloResponse'
+        '400':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      description: Post
+      operationId: Post
+      responses:
+        '200':
+          description: HelloResponse
+          schema:
+            $ref: '#/definitions/HelloResponse'
+        '400':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      description: Put
+      operationId: put
+      responses:
+        '200':
+          description: HelloResponse
+          schema:
+            $ref: '#/definitions/HelloResponse'
+        '400':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+produces:
+  - application/json
+schemes:
+  - http
+  - https
+swagger: '2.0'

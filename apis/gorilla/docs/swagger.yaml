@@ -1,0 +1,15 @@
+basePath: /
+consumes:
+  - application/json
+host: localhost:8080
+info:
+  description: 'title: Gorilla Starter'
+  title: 'Gorilla Starter:'
+  version: 0.0.1
+paths: {}
+produces:
+  - application/json
+schemes:
+  - http
+  - https
+swagger: '2.0'

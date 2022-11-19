@@ -1,0 +1,30 @@
+{
+  "name": "@go/starter",
+  "version": "0.0.1",
+  "description": "Go Starter",
+  "main": "main.go",
+  "repository": "git@github.com:hieudoanm/go-starter.git",
+  "author": "hieudoanm <hieumdoan@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev:bee": "yarn workspace @go/bee dev",
+    "docs:bee": "yarn workspace @go/bee docs",
+    "dev:echo": "yarn workspace @go/echo dev",
+    "docs:echo": "yarn workspace @go/echo docs",
+    "dev:gin": "yarn workspace @go/gin dev",
+    "docs:gin": "yarn workspace @go/gin docs",
+    "dev:gorilla": "yarn workspace @go/gorilla dev",
+    "docs:gorilla": "yarn workspace @go/gorilla docs",
+    "dev:graphql": "yarn workspace @go/graphql dev",
+    "docs:graphql": "yarn workspace @go/graphql docs",
+    "dev:http": "yarn workspace @go/http dev",
+    "docs:http": "yarn workspace @go/http docs",
+    "dev:revel": "yarn workspace @go/revel dev",
+    "docs:revel": "yarn workspace @go/revel docs"
+  },
+  "workspaces": [
+    "apis/*",
+    "graphql/*"
+  ]
+}

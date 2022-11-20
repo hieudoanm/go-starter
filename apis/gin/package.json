@@ -1,7 +1,7 @@
 {
-  "name": "@go/gin",
+  "name": "@go/gin-apis",
   "version": "0.0.1",
-  "description": "Gin Starter",
+  "description": "Gin APIs Starter",
   "main": "main.go",
   "repository": "git@github.com:hieudoanm/go-starter.git",
   "author": "hieudoanm <hieumdoan@gmail.com>",
@@ -10,9 +10,5 @@
   "scripts": {
     "dev": "nodemon --exec go run main.go --signal SIGTERM",
     "docs": "swagger generate spec -o ./docs/swagger.yaml --scan-models"
-  },
-  "devDependencies": {
-    "concurrently": "7.5.0",
-    "nodemon": "2.0.20"
   }
 }

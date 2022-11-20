@@ -1,7 +1,7 @@
 {
-  "name": "@go/graphql",
+  "name": "@go/gin-socket",
   "version": "0.0.1",
-  "description": "GraphQL Starter",
+  "description": "Gin Socket Starter",
   "main": "main.go",
   "repository": "git@github.com:hieudoanm/go-starter.git",
   "author": "hieudoanm <hieumdoan@gmail.com>",
@@ -10,8 +10,5 @@
   "scripts": {
     "dev": "nodemon --exec go run main.go --signal SIGTERM",
     "docs": "swagger generate spec -o ./docs/swagger.yaml --scan-models"
-  },
-  "devDependencies": {
-    "nodemon": "2.0.20"
   }
 }

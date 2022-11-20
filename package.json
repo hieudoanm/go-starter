@@ -8,23 +8,33 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:bee": "yarn workspace @go/bee dev",
-    "docs:bee": "yarn workspace @go/bee docs",
-    "dev:echo": "yarn workspace @go/echo dev",
-    "docs:echo": "yarn workspace @go/echo docs",
-    "dev:gin": "yarn workspace @go/gin dev",
-    "docs:gin": "yarn workspace @go/gin docs",
-    "dev:gorilla": "yarn workspace @go/gorilla dev",
-    "docs:gorilla": "yarn workspace @go/gorilla docs",
-    "dev:graphql": "yarn workspace @go/graphql dev",
-    "docs:graphql": "yarn workspace @go/graphql docs",
-    "dev:http": "yarn workspace @go/http dev",
-    "docs:http": "yarn workspace @go/http docs",
-    "dev:revel": "yarn workspace @go/revel dev",
-    "docs:revel": "yarn workspace @go/revel docs"
+    "dev:bee:apis": "yarn workspace @go/bee-apis dev",
+    "docs:bee:apis": "yarn workspace @go/bee-apis docs",
+    "dev:echo:apis": "yarn workspace @go/echo-apis dev",
+    "docs:echo:apis": "yarn workspace @go/echo-apis docs",
+    "dev:echo:socket": "yarn workspace @go/echo-socket dev",
+    "docs:echo:socket": "yarn workspace @go/echo-socket docs",
+    "dev:gin:apis": "yarn workspace @go/gin-apis dev",
+    "docs:gin:apis": "yarn workspace @go/gin-apis docs",
+    "dev:gin:socket": "yarn workspace @go/gin-socket dev",
+    "docs:gin:socket": "yarn workspace @go/gin-socket docs",
+    "dev:gorilla:apis": "yarn workspace @go/gorilla-apis dev",
+    "docs:gorilla:apis": "yarn workspace @go/gorilla-apis docs",
+    "dev:http:apis": "yarn workspace @go/http-apis dev",
+    "docs:http:apis": "yarn workspace @go/http-apis docs",
+    "dev:http:graphql": "yarn workspace @go/http-graphql dev",
+    "docs:http:graphql": "yarn workspace @go/http-graphql docs",
+    "dev:http:socket": "yarn workspace @go/http-socket dev",
+    "docs:http:socket": "yarn workspace @go/http-socket docs",
+    "dev:revel:apis": "yarn workspace @go/revel-apis dev",
+    "docs:revel:apis": "yarn workspace @go/revel-apis docs"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.20"
   },
   "workspaces": [
     "apis/*",
+    "connection/*",
     "graphql/*"
   ]
 }

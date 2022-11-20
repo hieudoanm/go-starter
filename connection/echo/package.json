@@ -1,7 +1,7 @@
 {
-  "name": "@go/bee-apis",
+  "name": "@go/echo-socket",
   "version": "0.0.1",
-  "description": "Beego APIs Starter",
+  "description": "Echo Socket Starter",
   "main": "main.go",
   "repository": "git@github.com:hieudoanm/go-starter.git",
   "author": "hieudoanm <hieumdoan@gmail.com>",

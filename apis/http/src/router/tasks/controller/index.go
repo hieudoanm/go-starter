@@ -16,21 +16,17 @@ func GetTasks(writer http.ResponseWriter, request *http.Request, _ httprouter.Pa
 	json.NewEncoder(writer).Encode(tasks)
 }
 
-type NewTask struct {
-	Title string `json:"title"`
-}
-
 func CreateTask(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	writer.Header().Set("Content-Type", "application/json")
 	// Parse Body
 	decoder := json.NewDecoder(request.Body)
-	var newTask NewTask
-	err := decoder.Decode(&newTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Create New Task
-	id := tasks_service.CreateTask(newTask.Title)
+	id := tasks_service.CreateTask(taskRequest)
 	json.NewEncoder(writer).Encode(map[string]string{"id": id})
 }
 
@@ -47,13 +43,13 @@ func UpdateTaskById(writer http.ResponseWriter, request *http.Request, params ht
 	var id string = params.ByName("id")
 	// Parse Body
 	decoder := json.NewDecoder(request.Body)
-	var updatedTask tasks_service.UpdatedTask
-	err := decoder.Decode(&updatedTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Update Task
-	var task = tasks_service.UpdateTask(id, updatedTask)
+	var task = tasks_service.UpdateTask(id, taskRequest)
 	json.NewEncoder(writer).Encode(task)
 }
 
@@ -62,13 +58,13 @@ func PatchTaskById(writer http.ResponseWriter, request *http.Request, params htt
 	var id string = params.ByName("id")
 	// Parse Body
 	decoder := json.NewDecoder(request.Body)
-	var updatedTask tasks_service.UpdatedTask
-	err := decoder.Decode(&updatedTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Update Task
-	var task = tasks_service.UpdateTask(id, updatedTask)
+	var task = tasks_service.UpdateTask(id, taskRequest)
 	json.NewEncoder(writer).Encode(task)
 }
 

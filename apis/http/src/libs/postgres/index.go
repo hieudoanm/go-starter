@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"fmt"
+	"http-starter/src/utils"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -16,6 +17,14 @@ type DatabaseConfigs struct {
 	Mode     string `json:"mode"`
 	TimeZone string `json:"timeZone"`
 }
+
+var DATABASE_HOST = utils.Getenv("DATABASE_HOST", "localhost")
+var DATABASE_PORT = utils.Getenv("DATABASE_PORT", "5432")
+var DATABASE_USER = utils.Getenv("DATABASE_USER", "gouser")
+var DATABASE_PASS = utils.Getenv("DATABASE_PASS", "gopass")
+var DATABASE_NAME = utils.Getenv("DATABASE_NAME", "postgres")
+var DATABASE_MODE = utils.Getenv("DATABASE_MODE", "disable")
+var DATABASE_TIMEZONE = utils.Getenv("DATABASE_TIMEZONE", "Asia/Ho_Chi_Minh")
 
 var postgresDatabase *gorm.DB
 
@@ -39,4 +48,16 @@ func Open(configs DatabaseConfigs) *gorm.DB {
 	}
 	postgresDatabase = database
 	return postgresDatabase
+}
+
+func OpenDatabase() *gorm.DB {
+	return Open(DatabaseConfigs{
+		Host:     DATABASE_HOST,
+		Port:     DATABASE_PORT,
+		User:     DATABASE_USER,
+		Pass:     DATABASE_PASS,
+		Name:     DATABASE_NAME,
+		Mode:     DATABASE_MODE,
+		TimeZone: DATABASE_TIMEZONE,
+	})
 }

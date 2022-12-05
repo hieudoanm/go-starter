@@ -14,5 +14,7 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
+# Node.js
 .env
-/node_modules
+migrations
+node_modules

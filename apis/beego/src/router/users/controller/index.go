@@ -1,114 +1,114 @@
-package tasks_controller
+package users_controller
 
 import (
 	"encoding/json"
 	"strings"
 
-	tasks_service "bee-starter/src/router/tasks/service"
+	users_service "bee-starter/src/router/users/service"
 
 	beecontext "github.com/beego/beego/v2/server/web/context"
 )
 
-func GetTasks(ctx *beecontext.Context) {
-	// Get Tasks
-	var tasks = tasks_service.GetTasks()
+func GetUsers(ctx *beecontext.Context) {
+	// Get Users
+	var users = users_service.GetUsers()
 
-	byteTasks, byteError := json.Marshal(tasks)
+	byteUsers, byteError := json.Marshal(users)
 	if byteError != nil {
 		panic(byteError)
 	}
 
 	ctx.Output.Header("Content-Type", "application/json")
-	ctx.Output.Body(byteTasks)
+	ctx.Output.Body(byteUsers)
 }
 
-func CreateTask(ctx *beecontext.Context) {
+func CreateUser(ctx *beecontext.Context) {
 	// Parse Body
 	decoder := json.NewDecoder(ctx.Request.Body)
-	var taskRequest tasks_service.TaskRequest
-	err := decoder.Decode(&taskRequest)
+	var userRequest users_service.UserRequest
+	err := decoder.Decode(&userRequest)
 	if err != nil {
 		panic(err)
 	}
-	// Create New Task
-	id := tasks_service.CreateTask(taskRequest)
+	// Create New User
+	id := users_service.CreateUser(userRequest)
 
-	byteTask, byteError := json.Marshal(map[string]string{"id": id})
+	byteUser, byteError := json.Marshal(map[string]string{"id": id})
 	if byteError != nil {
 		panic(byteError)
 	}
 
 	ctx.Output.Header("Content-Type", "application/json")
-	ctx.Output.Body(byteTask)
+	ctx.Output.Body(byteUser)
 }
 
-func GetTaskById(ctx *beecontext.Context) {
+func GetUserById(ctx *beecontext.Context) {
 	var pathParams []string = strings.Split(ctx.Request.URL.Path, "/")
 	var id string = pathParams[2]
-	// Get Task
-	var task = tasks_service.GetTask(id)
+	// Get User
+	var user = users_service.GetUser(id)
 
-	byteTask, byteError := json.Marshal(task)
+	byteUser, byteError := json.Marshal(user)
 	if byteError != nil {
 		panic(byteError)
 	}
 
 	ctx.Output.Header("Content-Type", "application/json")
-	ctx.Output.Body(byteTask)
+	ctx.Output.Body(byteUser)
 }
 
-func UpdateTaskById(ctx *beecontext.Context) {
-	var pathParams []string = strings.Split(ctx.Request.URL.Path, "/")
-	var id string = pathParams[2]
-	// Parse Body
-	decoder := json.NewDecoder(ctx.Request.Body)
-	var taskRequest tasks_service.TaskRequest
-	err := decoder.Decode(&taskRequest)
-	if err != nil {
-		panic(err)
-	}
-	// Update Task
-	var task = tasks_service.UpdateTask(id, taskRequest)
-	byteTask, byteError := json.Marshal(task)
-	if byteError != nil {
-		panic(byteError)
-	}
-
-	ctx.Output.Header("Content-Type", "application/json")
-	ctx.Output.Body(byteTask)
-}
-
-func PatchTaskById(ctx *beecontext.Context) {
+func UpdateUserById(ctx *beecontext.Context) {
 	var pathParams []string = strings.Split(ctx.Request.URL.Path, "/")
 	var id string = pathParams[2]
 	// Parse Body
 	decoder := json.NewDecoder(ctx.Request.Body)
-	var taskRequest tasks_service.TaskRequest
-	err := decoder.Decode(&taskRequest)
+	var userRequest users_service.UserRequest
+	err := decoder.Decode(&userRequest)
 	if err != nil {
 		panic(err)
 	}
-	// Update Task
-	var task = tasks_service.UpdateTask(id, taskRequest)
-	byteTask, byteError := json.Marshal(task)
+	// Update User
+	var user = users_service.UpdateUser(id, userRequest)
+	byteUser, byteError := json.Marshal(user)
 	if byteError != nil {
 		panic(byteError)
 	}
 
 	ctx.Output.Header("Content-Type", "application/json")
-	ctx.Output.Body(byteTask)
+	ctx.Output.Body(byteUser)
 }
 
-func DeleteTaskById(ctx *beecontext.Context) {
+func PatchUserById(ctx *beecontext.Context) {
 	var pathParams []string = strings.Split(ctx.Request.URL.Path, "/")
 	var id string = pathParams[2]
-	// Get Task
-	var task = tasks_service.DeleteTask(id)
-	byteTask, byteError := json.Marshal(task)
+	// Parse Body
+	decoder := json.NewDecoder(ctx.Request.Body)
+	var userRequest users_service.UserRequest
+	err := decoder.Decode(&userRequest)
+	if err != nil {
+		panic(err)
+	}
+	// Update User
+	var user = users_service.UpdateUser(id, userRequest)
+	byteUser, byteError := json.Marshal(user)
 	if byteError != nil {
 		panic(byteError)
 	}
 
 	ctx.Output.Header("Content-Type", "application/json")
-	ctx.Output.Body(byteTask)
+	ctx.Output.Body(byteUser)
+}
+
+func DeleteUserById(ctx *beecontext.Context) {
+	var pathParams []string = strings.Split(ctx.Request.URL.Path, "/")
+	var id string = pathParams[2]
+	// Get User
+	var user = users_service.DeleteUser(id)
+	byteUser, byteError := json.Marshal(user)
+	if byteError != nil {
+		panic(byteError)
+	}
+
+	ctx.Output.Header("Content-Type", "application/json")
+	ctx.Output.Body(byteUser)
 }

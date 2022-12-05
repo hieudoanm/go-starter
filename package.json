@@ -27,10 +27,12 @@
     "dev:http:socket": "yarn workspace @go/http-socket dev",
     "docs:http:socket": "yarn workspace @go/http-socket docs",
     "dev:revel:apis": "yarn workspace @go/revel-apis dev",
-    "docs:revel:apis": "yarn workspace @go/revel-apis docs"
+    "docs:revel:apis": "yarn workspace @go/revel-apis docs",
+    "prisma:init": "prisma format && prisma generate && prisma migrate dev --name init"
   },
   "devDependencies": {
-    "nodemon": "2.0.20"
+    "nodemon": "2.0.20",
+    "prisma": "^4.7.1"
   },
   "workspaces": [
     "apis/*",

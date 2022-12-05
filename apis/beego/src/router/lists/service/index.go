@@ -1,4 +1,4 @@
-package tasks_service
+package lists_service
 
 import (
 	postgres "bee-starter/src/libs/postgres"
@@ -17,23 +17,22 @@ var DATABASE_NAME = utils.Getenv("DATABASE_NAME", "postgres")
 var DATABASE_MODE = utils.Getenv("DATABASE_MODE", "disable")
 var DATABASE_TIMEZONE = utils.Getenv("DATABASE_TIMEZONE", "Asia/Ho_Chi_Minh")
 
-type Task struct {
+type List struct {
 	ID          string    `json:"id"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
-	Completed   bool      `json:"completed"`
-	ListId      string    `json:"listId"`
+	UserId      string    `json:"userId"`
 	Createdat   time.Time `json:"createdAt"`
 	Updatedat   time.Time `json:"updatedAt"`
 }
 
-type TaskRequest struct {
+type ListRequest struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Completed   bool   `json:"completed"`
 }
 
-func GetTasks() []Task {
+func GetLists() []List {
 	database := postgres.Open(postgres.DatabaseConfigs{
 		Host:     DATABASE_HOST,
 		Port:     DATABASE_PORT,
@@ -44,17 +43,17 @@ func GetTasks() []Task {
 		TimeZone: DATABASE_TIMEZONE,
 	})
 
-	var tasks []Task
-	result := database.Find(&tasks)
+	var lists []List
+	result := database.Find(&lists)
 	resultError := result.Error
 	if resultError != nil {
 		panic(resultError)
 	}
 
-	return tasks
+	return lists
 }
 
-func CreateTask(taskRequest TaskRequest) string {
+func CreateList(listRequest ListRequest) string {
 	database := postgres.Open(postgres.DatabaseConfigs{
 		Host:     DATABASE_HOST,
 		Port:     DATABASE_PORT,
@@ -65,24 +64,23 @@ func CreateTask(taskRequest TaskRequest) string {
 		TimeZone: DATABASE_TIMEZONE,
 	})
 
-	task := Task{
+	list := List{
 		ID:          uuid.New().String(),
-		Title:       taskRequest.Title,
-		Description: taskRequest.Description,
-		Completed:   false,
+		Title:       listRequest.Title,
+		Description: listRequest.Description,
 		Createdat:   time.Now(),
 		Updatedat:   time.Now(),
 	}
 
-	result := database.Create(&task)
+	result := database.Create(&list)
 	resultError := result.Error
 	if resultError != nil {
 		panic(resultError)
 	}
-	return task.ID
+	return list.ID
 }
 
-func GetTask(id string) Task {
+func GetList(id string) List {
 	database := postgres.Open(postgres.DatabaseConfigs{
 		Host:     DATABASE_HOST,
 		Port:     DATABASE_PORT,
@@ -93,13 +91,18 @@ func GetTask(id string) Task {
 		TimeZone: DATABASE_TIMEZONE,
 	})
 
-	var task Task
-	database.First(&task, "id = ?", id)
+	var list List
+	database.First(&list, "id = ?", id)
 
-	return task
+	return list
 }
 
-func UpdateTask(id string, taskRequest TaskRequest) Task {
+type UpdatedList struct {
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
+}
+
+func UpdateList(id string, listRequest ListRequest) List {
 	database := postgres.Open(postgres.DatabaseConfigs{
 		Host:     DATABASE_HOST,
 		Port:     DATABASE_PORT,
@@ -110,17 +113,16 @@ func UpdateTask(id string, taskRequest TaskRequest) Task {
 		TimeZone: DATABASE_TIMEZONE,
 	})
 
-	var task Task = Task{ID: id}
-	database.Model(&task).Updates(Task{
-		Title:       taskRequest.Title,
-		Description: taskRequest.Description,
-		Completed:   taskRequest.Completed,
+	var list List = List{ID: id}
+	database.Model(&list).Updates(List{
+		Title:       listRequest.Title,
+		Description: listRequest.Description,
 	})
 
-	return task
+	return list
 }
 
-func DeleteTask(id string) Task {
+func DeleteList(id string) List {
 	database := postgres.Open(postgres.DatabaseConfigs{
 		Host:     DATABASE_HOST,
 		Port:     DATABASE_PORT,
@@ -131,8 +133,8 @@ func DeleteTask(id string) Task {
 		TimeZone: DATABASE_TIMEZONE,
 	})
 
-	var task Task
-	database.Where("id = ?", id).Delete(&task)
+	var list List
+	database.Where("id = ?", id).Delete(&list)
 
-	return task
+	return list
 }

@@ -17,20 +17,16 @@ func GetTasks(c echo.Context) error {
 	return c.JSON(http.StatusOK, tasks)
 }
 
-type NewTask struct {
-	Title string `json:"title"`
-}
-
 func CreateTask(c echo.Context) error {
 	// Parse Body
 	decoder := json.NewDecoder(c.Request().Body)
-	var newTask NewTask
-	err := decoder.Decode(&newTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Create New Task
-	id := tasks_service.CreateTask(newTask.Title)
+	id := tasks_service.CreateTask(taskRequest)
 	return c.JSON(http.StatusOK, map[string]string{"id": id})
 }
 
@@ -48,13 +44,13 @@ func UpdateTaskById(c echo.Context) error {
 	var id string = pathParams[2]
 	// Parse Body
 	decoder := json.NewDecoder(c.Request().Body)
-	var updatedTask tasks_service.UpdatedTask
-	err := decoder.Decode(&updatedTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Update Task
-	var task = tasks_service.UpdateTask(id, updatedTask)
+	var task = tasks_service.UpdateTask(id, taskRequest)
 	return c.JSON(http.StatusOK, task)
 }
 
@@ -63,13 +59,13 @@ func PatchTaskById(c echo.Context) error {
 	var id string = pathParams[2]
 	// Parse Body
 	decoder := json.NewDecoder(c.Request().Body)
-	var updatedTask tasks_service.UpdatedTask
-	err := decoder.Decode(&updatedTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Update Task
-	var task = tasks_service.UpdateTask(id, updatedTask)
+	var task = tasks_service.UpdateTask(id, taskRequest)
 	return c.JSON(http.StatusOK, task)
 }
 

@@ -16,39 +16,12 @@ package main
 
 import (
 	health_controller "echo-starter/src/router/health/controller"
+	lists_controller "echo-starter/src/router/lists/controller"
 	tasks_controller "echo-starter/src/router/tasks/controller"
-	"net/http"
+	users_controller "echo-starter/src/router/users/controller"
 
 	"github.com/labstack/echo/v4"
 )
-
-func Get(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]string{"status": "healthy"})
-}
-
-func Post(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]string{"status": "healthy"})
-}
-
-func GetById(c echo.Context) error {
-	id := c.Param("id")
-	return c.JSON(http.StatusOK, map[string]string{"id": id})
-}
-
-func PutById(c echo.Context) error {
-	id := c.Param("id")
-	return c.JSON(http.StatusOK, map[string]string{"id": id})
-}
-
-func PatchById(c echo.Context) error {
-	id := c.Param("id")
-	return c.JSON(http.StatusOK, map[string]string{"id": id})
-}
-
-func DeleteById(c echo.Context) error {
-	id := c.Param("id")
-	return c.JSON(http.StatusOK, map[string]string{"id": id})
-}
 
 func main() {
 	e := echo.New()
@@ -61,6 +34,20 @@ func main() {
 	e.PUT("/tasks/:id", tasks_controller.UpdateTaskById)
 	e.PATCH("/tasks/:id", tasks_controller.UpdateTaskById)
 	e.DELETE("/tasks/:id", tasks_controller.DeleteTaskById)
+	// Lists
+	e.GET("/lists", lists_controller.GetLists)
+	e.POST("/lists", lists_controller.CreateList)
+	e.GET("/lists/:id", lists_controller.GetListById)
+	e.PUT("/lists/:id", lists_controller.UpdateListById)
+	e.PATCH("/lists/:id", lists_controller.UpdateListById)
+	e.DELETE("/lists/:id", lists_controller.DeleteListById)
+	// Users
+	e.GET("/users", users_controller.GetUsers)
+	e.POST("/users", users_controller.CreateUser)
+	e.GET("/users/:id", users_controller.GetUserById)
+	e.PUT("/users/:id", users_controller.UpdateUserById)
+	e.PATCH("/users/:id", users_controller.UpdateUserById)
+	e.DELETE("/users/:id", users_controller.DeleteUserById)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

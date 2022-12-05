@@ -31,6 +31,7 @@ type TaskRequest struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Completed   bool   `json:"completed"`
+	ListId      string `json:"listId"`
 }
 
 func GetTasks() []Task {
@@ -69,7 +70,8 @@ func CreateTask(taskRequest TaskRequest) string {
 		ID:          uuid.New().String(),
 		Title:       taskRequest.Title,
 		Description: taskRequest.Description,
-		Completed:   false,
+		Completed:   taskRequest.Completed,
+		ListId:      taskRequest.ListId,
 		Createdat:   time.Now(),
 		Updatedat:   time.Now(),
 	}
@@ -115,6 +117,7 @@ func UpdateTask(id string, taskRequest TaskRequest) Task {
 		Title:       taskRequest.Title,
 		Description: taskRequest.Description,
 		Completed:   taskRequest.Completed,
+		ListId:      taskRequest.ListId,
 	})
 
 	return task

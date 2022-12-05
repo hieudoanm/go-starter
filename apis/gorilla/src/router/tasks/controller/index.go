@@ -21,20 +21,16 @@ func GetTasks(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(byteTasks)
 }
 
-type NewTask struct {
-	Title string `json:"title"`
-}
-
 func CreateTask(writer http.ResponseWriter, request *http.Request) {
 	// Parse Body
 	decoder := json.NewDecoder(request.Body)
-	var newTask NewTask
-	err := decoder.Decode(&newTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Create New Task
-	id := tasks_service.CreateTask(newTask.Title)
+	id := tasks_service.CreateTask(taskRequest)
 	byteTask, err := json.Marshal(map[string]string{"id": id})
 	if err != nil {
 		panic(err)
@@ -63,13 +59,13 @@ func UpdateTaskById(writer http.ResponseWriter, request *http.Request) {
 	id := params["id"]
 	// Parse Body
 	decoder := json.NewDecoder(request.Body)
-	var updatedTask tasks_service.UpdatedTask
-	err := decoder.Decode(&updatedTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Update Task
-	var task = tasks_service.UpdateTask(id, updatedTask)
+	var task = tasks_service.UpdateTask(id, taskRequest)
 	byteTask, err := json.Marshal(task)
 	if err != nil {
 		panic(err)
@@ -84,13 +80,13 @@ func PatchTaskById(writer http.ResponseWriter, request *http.Request) {
 	id := params["id"]
 	// Parse Body
 	decoder := json.NewDecoder(request.Body)
-	var updatedTask tasks_service.UpdatedTask
-	err := decoder.Decode(&updatedTask)
+	var taskRequest tasks_service.TaskRequest
+	err := decoder.Decode(&taskRequest)
 	if err != nil {
 		panic(err)
 	}
 	// Update Task
-	var task = tasks_service.UpdateTask(id, updatedTask)
+	var task = tasks_service.UpdateTask(id, taskRequest)
 	byteTask, err := json.Marshal(task)
 	if err != nil {
 		panic(err)

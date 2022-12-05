@@ -45,7 +45,7 @@ func CreateTask(taskRequest TaskRequest) string {
 		ID:          uuid.New().String(),
 		Title:       taskRequest.Title,
 		Description: taskRequest.Description,
-		Completed:   false,
+		Completed:   taskRequest.Completed,
 		ListId:      taskRequest.ListId,
 		Createdat:   time.Now(),
 		Updatedat:   time.Now(),

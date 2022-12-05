@@ -1,4 +1,4 @@
-package tasks_service
+package lists_service
 
 import (
 	"encoding/json"
@@ -11,48 +11,47 @@ import (
 
 var API = utils.Getenv("API", "http://localhost:8080")
 
-type Task struct {
+type List struct {
 	ID          string    `json:"id"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
-	Completed   bool      `json:"completed"`
-	ListId      string    `json:"listId"`
+	UserId      string    `json:"userId"`
 	Createdat   time.Time `json:"createdAt"`
 	Updatedat   time.Time `json:"updatedAt"`
 }
 
-func GetTasks() ([]Task, error) {
-	var url = fmt.Sprintf("%s/tasks", API)
+func GetLists() ([]List, error) {
+	var url = fmt.Sprintf("%s/lists", API)
 	body, httpGetError := http.Get(url)
 	if httpGetError != nil {
-		log.Println("Fail to GetTasks")
+		log.Println("Fail to GetLists")
 		return nil, httpGetError
 	}
 	// Parse JSON
-	var tasks []Task
-	jsonUnmarshalError := json.Unmarshal(body, &tasks)
+	var lists []List
+	jsonUnmarshalError := json.Unmarshal(body, &lists)
 	if jsonUnmarshalError != nil {
-		log.Println("Fail to GetTasks")
+		log.Println("Fail to GetLists")
 		return nil, jsonUnmarshalError
 	}
 
-	return tasks, nil
+	return lists, nil
 }
 
-func GetTask(id string) (Task, error) {
-	var url = fmt.Sprintf("%s/tasks/%s", API, id)
+func GetList(id string) (List, error) {
+	var url = fmt.Sprintf("%s/lists/%s", API, id)
 	body, httpGetError := http.Get(url)
 	if httpGetError != nil {
-		log.Println("Fail to GetTasks")
-		return Task{}, httpGetError
+		log.Println("Fail to GetLists")
+		return List{}, httpGetError
 	}
 	// Parse JSON
-	var task Task
-	jsonUnmarshalError := json.Unmarshal(body, &task)
+	var list List
+	jsonUnmarshalError := json.Unmarshal(body, &list)
 	if jsonUnmarshalError != nil {
-		log.Println("Fail to GetTasks")
-		return Task{}, jsonUnmarshalError
+		log.Println("Fail to GetLists")
+		return List{}, jsonUnmarshalError
 	}
 
-	return task, nil
+	return list, nil
 }

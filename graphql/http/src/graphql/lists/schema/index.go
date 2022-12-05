@@ -1,9 +1,9 @@
-package tasks_schema
+package lists_schema
 
 import "github.com/graphql-go/graphql"
 
-var Task = graphql.NewObject(graphql.ObjectConfig{
-	Name: "Task",
+var List = graphql.NewObject(graphql.ObjectConfig{
+	Name: "List",
 	Fields: graphql.Fields{
 		"id": &graphql.Field{
 			Name: "id",
@@ -17,13 +17,9 @@ var Task = graphql.NewObject(graphql.ObjectConfig{
 			Name: "description",
 			Type: graphql.String,
 		},
-		"listId": &graphql.Field{
-			Name: "listId",
+		"userId": &graphql.Field{
+			Name: "userId",
 			Type: graphql.String,
-		},
-		"completed": &graphql.Field{
-			Name: "completed",
-			Type: graphql.Boolean,
 		},
 	},
 })

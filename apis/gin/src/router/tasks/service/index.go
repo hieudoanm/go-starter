@@ -2,39 +2,31 @@ package tasks_service
 
 import (
 	postgres "gin-starter/src/libs/postgres"
-	"gin-starter/src/utils"
 
 	"time"
 
 	"github.com/google/uuid"
 )
 
-var DATABASE_HOST = utils.Getenv("DATABASE_HOST", "localhost")
-var DATABASE_PORT = utils.Getenv("DATABASE_PORT", "5432")
-var DATABASE_USER = utils.Getenv("DATABASE_USER", "gouser")
-var DATABASE_PASS = utils.Getenv("DATABASE_PASS", "gopass")
-var DATABASE_NAME = utils.Getenv("DATABASE_NAME", "postgres")
-var DATABASE_MODE = utils.Getenv("DATABASE_MODE", "disable")
-var DATABASE_TIMEZONE = utils.Getenv("DATABASE_TIMEZONE", "Asia/Ho_Chi_Minh")
-
 type Task struct {
-	ID        string    `json:"id"`
-	Title     string    `json:"title"`
-	Completed bool      `json:"completed"`
-	Createdat time.Time `json:"createdAt"`
-	Updatedat time.Time `json:"updatedAt"`
+	ID          string    `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Completed   bool      `json:"completed"`
+	ListId      string    `json:"listId"`
+	Createdat   time.Time `json:"createdAt"`
+	Updatedat   time.Time `json:"updatedAt"`
+}
+
+type TaskRequest struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Completed   bool   `json:"completed"`
+	ListId      string `json:"listId"`
 }
 
 func GetTasks() []Task {
-	database := postgres.Open(postgres.DatabaseConfigs{
-		Host:     DATABASE_HOST,
-		Port:     DATABASE_PORT,
-		User:     DATABASE_USER,
-		Pass:     DATABASE_PASS,
-		Name:     DATABASE_NAME,
-		Mode:     DATABASE_MODE,
-		TimeZone: DATABASE_TIMEZONE,
-	})
+	database := postgres.OpenDatabase()
 
 	var tasks []Task
 	result := database.Find(&tasks)
@@ -46,23 +38,17 @@ func GetTasks() []Task {
 	return tasks
 }
 
-func CreateTask(title string) string {
-	database := postgres.Open(postgres.DatabaseConfigs{
-		Host:     DATABASE_HOST,
-		Port:     DATABASE_PORT,
-		User:     DATABASE_USER,
-		Pass:     DATABASE_PASS,
-		Name:     DATABASE_NAME,
-		Mode:     DATABASE_MODE,
-		TimeZone: DATABASE_TIMEZONE,
-	})
+func CreateTask(taskRequest TaskRequest) string {
+	database := postgres.OpenDatabase()
 
 	task := Task{
-		ID:        uuid.New().String(),
-		Title:     title,
-		Completed: false,
-		Createdat: time.Now(),
-		Updatedat: time.Now(),
+		ID:          uuid.New().String(),
+		Title:       taskRequest.Title,
+		Description: taskRequest.Description,
+		Completed:   false,
+		ListId:      taskRequest.ListId,
+		Createdat:   time.Now(),
+		Updatedat:   time.Now(),
 	}
 
 	result := database.Create(&task)
@@ -74,15 +60,7 @@ func CreateTask(title string) string {
 }
 
 func GetTask(id string) Task {
-	database := postgres.Open(postgres.DatabaseConfigs{
-		Host:     DATABASE_HOST,
-		Port:     DATABASE_PORT,
-		User:     DATABASE_USER,
-		Pass:     DATABASE_PASS,
-		Name:     DATABASE_NAME,
-		Mode:     DATABASE_MODE,
-		TimeZone: DATABASE_TIMEZONE,
-	})
+	database := postgres.OpenDatabase()
 
 	var task Task
 	database.First(&task, "id = ?", id)
@@ -90,38 +68,22 @@ func GetTask(id string) Task {
 	return task
 }
 
-type UpdatedTask struct {
-	Title     string `json:"title"`
-	Completed bool   `json:"completed"`
-}
-
-func UpdateTask(id string, updatedTask UpdatedTask) Task {
-	database := postgres.Open(postgres.DatabaseConfigs{
-		Host:     DATABASE_HOST,
-		Port:     DATABASE_PORT,
-		User:     DATABASE_USER,
-		Pass:     DATABASE_PASS,
-		Name:     DATABASE_NAME,
-		Mode:     DATABASE_MODE,
-		TimeZone: DATABASE_TIMEZONE,
-	})
+func UpdateTask(id string, taskRequest TaskRequest) Task {
+	database := postgres.OpenDatabase()
 
 	var task Task = Task{ID: id}
-	database.Model(&task).Updates(Task{Title: updatedTask.Title, Completed: updatedTask.Completed})
+	database.Model(&task).Updates(Task{
+		Title:       taskRequest.Title,
+		Description: taskRequest.Description,
+		Completed:   taskRequest.Completed,
+		ListId:      taskRequest.ListId,
+	})
 
 	return task
 }
 
 func DeleteTask(id string) Task {
-	database := postgres.Open(postgres.DatabaseConfigs{
-		Host:     DATABASE_HOST,
-		Port:     DATABASE_PORT,
-		User:     DATABASE_USER,
-		Pass:     DATABASE_PASS,
-		Name:     DATABASE_NAME,
-		Mode:     DATABASE_MODE,
-		TimeZone: DATABASE_TIMEZONE,
-	})
+	database := postgres.OpenDatabase()
 
 	var task Task
 	database.Where("id = ?", id).Delete(&task)

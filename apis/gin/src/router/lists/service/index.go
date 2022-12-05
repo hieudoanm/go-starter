@@ -1,7 +1,7 @@
 package lists_service
 
 import (
-	postgres "echo-starter/src/libs/postgres"
+	postgres "gin-starter/src/libs/postgres"
 
 	"time"
 

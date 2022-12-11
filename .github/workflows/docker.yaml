@@ -1,0 +1,86 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  github-actions:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - name: Ubuntu
+            version: ubuntu-latest
+        go:
+          - name: Golang 1.19
+            version: 1.19
+        project:
+          - name: APIs - Beego
+            image-name: apis-beego
+            working-directory: ./apis/beego
+          - name: APIs - Echo
+            image-name: apis-echo
+            working-directory: ./apis/echo
+          - name: APIs - Gin
+            image-name: apis-gin
+            working-directory: ./apis/gin
+          - name: APIs - Gorilla
+            image-name: apis-gorilla
+            working-directory: ./apis/gorilla
+          - name: APIs - HTTP
+            image-name: apis-http
+            working-directory: ./apis/http
+          - name: APIs - Revel
+            image-name: apis-revel
+            working-directory: ./apis/revel
+          - name: Connection - Echo
+            image-name: connection-echo
+            working-directory: ./connection/echo
+          - name: Connection - Gin
+            image-name: connection-gin
+            working-directory: ./connection/gin
+          - name: Connection - HTTP
+            image-name: connection-http
+            working-directory: ./connection/http
+          - name: GraphQL - HTTP
+            image-name: graphql-http
+            working-directory: ./graphql/http
+    name: ${{ matrix.os.name }} - ${{ matrix.go.name }} - ${{ matrix.project.app-name }}
+    runs-on: ${{ matrix.os.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go.version }}
+      - name: Branch
+        run: echo ${{ github.head_ref || github.ref_name }}
+      - name: TimeZone
+        uses: szenius/set-timezone@v1.1
+        with:
+          timezoneLinux: 'Asia/Ho_Chi_Minh'
+      - name: Get Date & Time
+        id: datetime
+        run: |
+          echo $(date +'%Y-%m-%dT%H:%M:%S')
+          echo "::set-output name=datetime::$(date +'%Y%m%d.%H%M%S')"
+      - name: Get Commit SHA
+        id: version
+        run: |
+          echo $(git rev-parse --short HEAD)
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Update Tools
+        run: sudo apt-get update && sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+      - name: Add Repository
+        run: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+      - name: Install Docker
+        run: sudo apt-get update && sudo apt-get install docker-ce
+      - name: Docker Build
+        working-directory: ${{ matrix.project.working-directory }}
+        run: docker build . --no-cache -t ${{ matrix.project.image-name }}:$IMAGE_TAG
+        env:
+          IMAGE_TAG: ${{ github.head_ref || github.ref_name }}.${{ steps.datetime.outputs.datetime }}.${{ steps.version.outputs.sha_short }}

@@ -65,6 +65,28 @@ jobs:
             working-directory: ./messages/redis/producer
           - name: Messages - SQS - Consumer
             working-directory: ./messages/redis/consumer
+          - name: Packages - air-visual
+            working-directory: ./packages/air-visual
+          - name: Packages - axios
+            working-directory: ./packages/axios
+          - name: Packages - dotenv
+            working-directory: ./packages/dotenv
+          - name: Packages - fixer
+            working-directory: ./packages/fixer
+          - name: Packages - football-data
+            working-directory: ./packages/football-data
+          - name: Packages - frankfurter
+            working-directory: ./packages/frankfurter
+          - name: Packages - news
+            working-directory: ./packages/news
+          - name: Packages - open-weather-map
+            working-directory: ./packages/open-weather-map
+          - name: Packages - telegram
+            working-directory: ./packages/telegram
+          - name: Packages - vault
+            working-directory: ./packages/vault
+          - name: Packages - youtube
+            working-directory: ./packages/youtube
     name: ${{ matrix.os.name }} - ${{ matrix.go.name }} - ${{ matrix.project.name }}
     runs-on: ${{ matrix.os.version }}
     steps:

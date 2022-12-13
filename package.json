@@ -1,42 +1,44 @@
 {
-  "name": "@go/starter",
-  "version": "0.0.1",
-  "description": "Go Starter",
-  "main": "main.go",
-  "repository": "git@github.com:hieudoanm/go-starter.git",
-  "author": "hieudoanm <hieumdoan@gmail.com>",
-  "license": "MIT",
-  "private": true,
-  "scripts": {
-    "dev:bee:apis": "yarn workspace @go/bee-apis dev",
-    "docs:bee:apis": "yarn workspace @go/bee-apis docs",
-    "dev:echo:apis": "yarn workspace @go/echo-apis dev",
-    "docs:echo:apis": "yarn workspace @go/echo-apis docs",
-    "dev:echo:socket": "yarn workspace @go/echo-socket dev",
-    "docs:echo:socket": "yarn workspace @go/echo-socket docs",
-    "dev:gin:apis": "yarn workspace @go/gin-apis dev",
-    "docs:gin:apis": "yarn workspace @go/gin-apis docs",
-    "dev:gin:socket": "yarn workspace @go/gin-socket dev",
-    "docs:gin:socket": "yarn workspace @go/gin-socket docs",
-    "dev:gorilla:apis": "yarn workspace @go/gorilla-apis dev",
-    "docs:gorilla:apis": "yarn workspace @go/gorilla-apis docs",
-    "dev:http:apis": "yarn workspace @go/http-apis dev",
-    "docs:http:apis": "yarn workspace @go/http-apis docs",
-    "dev:http:graphql": "yarn workspace @go/http-graphql dev",
-    "docs:http:graphql": "yarn workspace @go/http-graphql docs",
-    "dev:http:socket": "yarn workspace @go/http-socket dev",
-    "docs:http:socket": "yarn workspace @go/http-socket docs",
-    "dev:revel:apis": "yarn workspace @go/revel-apis dev",
-    "docs:revel:apis": "yarn workspace @go/revel-apis docs",
-    "prisma:init": "prisma format && prisma generate && prisma migrate dev --name init"
-  },
-  "devDependencies": {
-    "nodemon": "2.0.20",
-    "prisma": "4.7.1"
-  },
-  "workspaces": [
-    "apis/*",
-    "connection/*",
-    "graphql/*"
-  ]
+	"name": "@go/starter",
+	"version": "0.0.1",
+	"description": "Go Starter",
+	"main": "main.go",
+	"repository": "git@github.com:hieudoanm/go-starter.git",
+	"author": "hieudoanm <hieumdoan@gmail.com>",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"dev:bee:apis": "yarn workspace @go/bee-apis dev",
+		"docs:bee:apis": "yarn workspace @go/bee-apis docs",
+		"dev:echo:apis": "yarn workspace @go/echo-apis dev",
+		"docs:echo:apis": "yarn workspace @go/echo-apis docs",
+		"dev:echo:socket": "yarn workspace @go/echo-socket dev",
+		"docs:echo:socket": "yarn workspace @go/echo-socket docs",
+		"dev:gin:apis": "yarn workspace @go/gin-apis dev",
+		"docs:gin:apis": "yarn workspace @go/gin-apis docs",
+		"dev:gin:socket": "yarn workspace @go/gin-socket dev",
+		"docs:gin:socket": "yarn workspace @go/gin-socket docs",
+		"dev:gorilla:apis": "yarn workspace @go/gorilla-apis dev",
+		"docs:gorilla:apis": "yarn workspace @go/gorilla-apis docs",
+		"dev:http:apis": "yarn workspace @go/http-apis dev",
+		"docs:http:apis": "yarn workspace @go/http-apis docs",
+		"dev:http:graphql": "yarn workspace @go/http-graphql dev",
+		"docs:http:graphql": "yarn workspace @go/http-graphql docs",
+		"dev:http:socket": "yarn workspace @go/http-socket dev",
+		"docs:http:socket": "yarn workspace @go/http-socket docs",
+		"dev:revel:apis": "yarn workspace @go/revel-apis dev",
+		"docs:revel:apis": "yarn workspace @go/revel-apis docs",
+		"prisma:init": "prisma format && prisma generate && prisma migrate dev --name init"
+	},
+	"devDependencies": {
+		"nodemon": "2.0.20",
+		"prisma": "4.7.1"
+	},
+	"workspaces": [
+		"apis/*",
+		"connection/*",
+		"graphql/*",
+		"messages/*",
+		"packages/*"
+	]
 }

@@ -1,0 +1,10 @@
+{
+  "name": "@go/dotenv",
+  "version": "0.0.1",
+  "description": "Golang - dotenv",
+  "main": "index.go",
+  "repository": "git@github.com:hieudoanm/go-sdk.git",
+  "author": "hieudoanm <hieumdoan@gmail.com>",
+  "license": "MIT",
+  "private": true
+}

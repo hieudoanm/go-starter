@@ -5,6 +5,12 @@ on:
     branches:
       - master
       - develop
+    paths:
+      - .github/workflows/docker.yaml
+      - apis/**
+      - connections/**
+      - graphql/**
+      - messages/**
 
 jobs:
   github-actions:
@@ -98,7 +104,7 @@ jobs:
       - name: TimeZone
         uses: szenius/set-timezone@v1.1
         with:
-          timezoneLinux: 'Asia/Ho_Chi_Minh'
+          timezoneLinux: "Asia/Ho_Chi_Minh"
       - name: Get Date & Time
         id: datetime
         run: |

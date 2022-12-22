@@ -8,6 +8,13 @@ on:
       - hotfix/**
       - feature/**
       - renovate/**
+    paths:
+      - .github/workflows/ci.yaml
+      - apis/**
+      - connections/**
+      - graphql/**
+      - messages/**
+      - packages/**
 
 jobs:
   github-actions:

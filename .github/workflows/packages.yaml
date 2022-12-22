@@ -44,10 +44,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Log in to the Container registry
+      - name: Log in to the Container Registry
         uses: docker/login-action@v2.1.0
         with:
-          registry: ${{ env.registry }}
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GH_TOKEN }}
       - name: Build and push Docker image
@@ -56,5 +56,5 @@ jobs:
           push: true
           context: ${{ matrix.project.working-directory }}
           file: ${{ matrix.project.working-directory }}/Dockerfile
-          tags: ${{ env.registry }}/${{ github.actor }}/${{ matrix.project.image-name }}:${{ env.VERSION }}
+          tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ matrix.project.image-name }}:${{ env.VERSION }}
           github-token: ${{ secrets.GH_TOKEN }}

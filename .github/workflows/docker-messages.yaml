@@ -1,0 +1,79 @@
+name: Container - Messages
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - .github/workflows/docker-messages.yaml
+      - messages/**
+
+env:
+  REGISTRY: ghcr.io
+  VERSION: latest
+
+jobs:
+  github-actions:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - app-name: Ubuntu
+            version: ubuntu-latest
+        project:
+          - app-name: Messages - ActiveMQ - Producer
+            image-name: messages-active-producer
+            working-directory: ./messages/active/producer
+          - app-name: Messages - ActiveMQ - Consumer
+            image-name: messages-active-consumer
+            working-directory: ./messages/active/consumer
+          - app-name: Messages - gRPC - Producer
+            image-name: messages-grpc-producer
+            working-directory: ./messages/active/producer
+          - app-name: Messages - gRPC - Consumer
+            image-name: messages-grpc-consumer
+            working-directory: ./messages/active/consumer
+          - app-name: Messages - Kafka - Producer
+            image-name: messages-kafka-producer
+            working-directory: ./messages/kafka/producer
+          - app-name: Messages - Kafka - Consumer
+            image-name: messages-kafka-consumer
+            working-directory: ./messages/kafka/consumer
+          - app-name: Messages - RabbitMQ - Producer
+            image-name: messages-rabbitmq-producer
+            working-directory: ./messages/rabbit/producer
+          - app-name: Messages - RabbitMQ - Consumer
+            image-name: messages-rabbitmq-consumer
+            working-directory: ./messages/rabbit/consumer
+          - app-name: Messages - Redis - Producer
+            image-name: messages-redis-producer
+            working-directory: ./messages/redis/producer
+          - app-name: Messages - Redis - Consumer
+            image-name: messages-redis-consumer
+            working-directory: ./messages/redis/consumer
+          - app-name: Messages - SQS - Producer
+            image-name: messages-sqs-producer
+            working-directory: ./messages/redis/producer
+          - app-name: Messages - SQS - Consumer
+            image-name: messages-sqs-consumer
+            working-directory: ./messages/redis/consumer
+    name: ${{ matrix.os.name }} - ${{ matrix.project.app-name }}
+    runs-on: ${{ matrix.os.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2.1.0
+        with:
+          push: true
+          context: ${{ matrix.project.working-directory }}
+          file: ${{ matrix.project.working-directory }}/Dockerfile
+          tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ matrix.project.image-name }}:${{ env.VERSION }}
+          github-token: ${{ secrets.GH_TOKEN }}

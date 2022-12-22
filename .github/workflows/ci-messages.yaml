@@ -1,0 +1,65 @@
+name: CI - Messages
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - hotfix/**
+      - feature/**
+      - renovate/**
+    paths:
+      - .github/workflows/ci-messages.yaml
+      - messages/**
+
+jobs:
+  github-actions:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - name: Ubuntu
+            version: ubuntu-latest
+        go:
+          - name: Golang 1.19
+            version: 1.19
+        project:
+          - name: Messages - ActiveMQ - Producer
+            working-directory: ./messages/active/producer
+          - name: Messages - ActiveMQ - Consumer
+            working-directory: ./messages/active/consumer
+          - name: Messages - gRPC - Producer
+            working-directory: ./messages/active/producer
+          - name: Messages - gRPC - Consumer
+            working-directory: ./messages/active/consumer
+          - name: Messages - Kafka - Producer
+            working-directory: ./messages/kafka/producer
+          - name: Messages - Kafka - Consumer
+            working-directory: ./messages/kafka/consumer
+          - name: Messages - RabbitMQ - Producer
+            working-directory: ./messages/rabbit/producer
+          - name: Messages - RabbitMQ - Consumer
+            working-directory: ./messages/rabbit/consumer
+          - name: Messages - Redis - Producer
+            working-directory: ./messages/redis/producer
+          - name: Messages - Redis - Consumer
+            working-directory: ./messages/redis/consumer
+          - name: Messages - SQS - Producer
+            working-directory: ./messages/redis/producer
+          - name: Messages - SQS - Consumer
+            working-directory: ./messages/redis/consumer
+    name: ${{ matrix.os.name }} - ${{ matrix.go.name }} - ${{ matrix.project.name }}
+    runs-on: ${{ matrix.os.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go.version }}
+      - name: Install Dependencies
+        run: go mod download
+        working-directory: ${{ matrix.project.working-directory }}
+      - name: Build Production
+        run: go build -o ./dist/main
+        working-directory: ${{ matrix.project.working-directory }}

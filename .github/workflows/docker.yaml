@@ -20,28 +20,7 @@ jobs:
         os:
           - name: Ubuntu
             version: ubuntu-latest
-        go:
-          - name: Golang 1.19
-            version: 1.19
         project:
-          - name: APIs - Beego
-            image-name: apis-beego
-            working-directory: ./apis/beego
-          - name: APIs - Echo
-            image-name: apis-echo
-            working-directory: ./apis/echo
-          - name: APIs - Gin
-            image-name: apis-gin
-            working-directory: ./apis/gin
-          - name: APIs - Gorilla
-            image-name: apis-gorilla
-            working-directory: ./apis/gorilla
-          - name: APIs - HTTP
-            image-name: apis-http
-            working-directory: ./apis/http
-          - name: APIs - Revel
-            image-name: apis-revel
-            working-directory: ./apis/revel
           - name: Connection - Echo
             image-name: connection-echo
             working-directory: ./connection/echo
@@ -54,43 +33,7 @@ jobs:
           - name: GraphQL - HTTP
             image-name: graphql-http
             working-directory: ./graphql/http
-          - app-name: Messages - Active - Producer
-            image-name: active-producer
-            working-directory: ./messages/active/producer
-          - app-name: Messages - Active - Consumer
-            image-name: active-consumer
-            working-directory: ./messages/active/consumer
-          - app-name: Messages - gRPC - Producer
-            image-name: grpc-producer
-            working-directory: ./messages/grpc/producer
-          - app-name: Messages - gRPC - Consumer
-            image-name: grpc-consumer
-            working-directory: ./messages/grpc/consumer
-          - app-name: Messages - Kafka - Producer
-            image-name: kafka-producer
-            working-directory: ./messages/kafka/producer
-          - app-name: Messages - Kafka - Consumer
-            image-name: kafka-consumer
-            working-directory: ./messages/kafka/consumer
-          - app-name: Messages - Rabbit - Producer
-            image-name: rabbit-producer
-            working-directory: ./messages/rabbit/producer
-          - app-name: Messages - Rabbit - Consumer
-            image-name: rabbit-consumer
-            working-directory: ./messages/rabbit/consumer
-          - app-name: Messages - Redis - Producer
-            image-name: redis-producer
-            working-directory: ./messages/redis/producer
-          - app-name: Messages - Redis - Consumer
-            image-name: redis-consumer
-            working-directory: ./messages/redis/consumer
-          - app-name: Messages - SQS - Producer
-            image-name: sqs-producer
-            working-directory: ./messages/sqs/producer
-          - app-name: Messages - SQS - Consumer
-            image-name: sqs-consumer
-            working-directory: ./messages/sqs/consumer
-    name: ${{ matrix.os.name }} - ${{ matrix.go.name }} - ${{ matrix.project.app-name }}
+    name: ${{ matrix.os.name }} - ${{ matrix.project.app-name }}
     runs-on: ${{ matrix.os.version }}
     steps:
       - name: Checkout

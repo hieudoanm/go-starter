@@ -1,0 +1,63 @@
+name: CI - Packages
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - hotfix/**
+      - feature/**
+      - renovate/**
+    paths:
+      - .github/workflows/ci-packages.yaml
+      - packages/**
+
+jobs:
+  github-actions:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - name: Ubuntu
+            version: ubuntu-latest
+        go:
+          - name: Golang 1.19
+            version: 1.19
+        project:
+          - name: Packages - air-visual
+            working-directory: ./packages/air-visual
+          - name: Packages - axios
+            working-directory: ./packages/axios
+          - name: Packages - dotenv
+            working-directory: ./packages/dotenv
+          - name: Packages - fixer
+            working-directory: ./packages/fixer
+          - name: Packages - football-data
+            working-directory: ./packages/football-data
+          - name: Packages - frankfurter
+            working-directory: ./packages/frankfurter
+          - name: Packages - news
+            working-directory: ./packages/news
+          - name: Packages - open-weather-map
+            working-directory: ./packages/open-weather-map
+          - name: Packages - telegram
+            working-directory: ./packages/telegram
+          - name: Packages - vault
+            working-directory: ./packages/vault
+          - name: Packages - youtube
+            working-directory: ./packages/youtube
+    name: ${{ matrix.os.name }} - ${{ matrix.go.name }} - ${{ matrix.project.name }}
+    runs-on: ${{ matrix.os.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go.version }}
+      - name: Install Dependencies
+        run: go mod download
+        working-directory: ${{ matrix.project.working-directory }}
+      - name: Build Production
+        run: go build -o ./dist/main
+        working-directory: ${{ matrix.project.working-directory }}

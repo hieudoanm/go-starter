@@ -1,4 +1,4 @@
-name: CI
+name: CI - APIs
 
 on:
   push:
@@ -9,9 +9,8 @@ on:
       - feature/**
       - renovate/**
     paths:
-      - .github/workflows/ci.yaml
-      - connections/**
-      - graphql/**
+      - .github/workflows/ci-apis.yaml
+      - apis/**
 
 jobs:
   github-actions:
@@ -25,14 +24,18 @@ jobs:
           - name: Golang 1.19
             version: 1.19
         project:
-          - name: Connection - Echo
-            working-directory: ./connections/echo
-          - name: Connection - Gin
-            working-directory: ./connections/gin
-          - name: Connection - HTTP
-            working-directory: ./connections/http
-          - name: GraphQL - HTTP
-            working-directory: ./graphql/http
+          - name: APIs - Beego
+            working-directory: ./apis/beego
+          - name: APIs - Echo
+            working-directory: ./apis/echo
+          - name: APIs - Gin
+            working-directory: ./apis/gin
+          - name: APIs - Gorilla
+            working-directory: ./apis/gorilla
+          - name: APIs - HTTP
+            working-directory: ./apis/http
+          - name: APIs - Revel
+            working-directory: ./apis/revel
     name: ${{ matrix.os.name }} - ${{ matrix.go.name }} - ${{ matrix.project.name }}
     runs-on: ${{ matrix.os.version }}
     steps:

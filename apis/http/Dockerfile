@@ -1,5 +1,9 @@
 FROM golang
 
+LABEL maintainer="hieumdoan@gmail.com"
+LABEL version="1.0"
+LABEL description="APIs - HTTP"
+
 WORKDIR /app
 
 COPY . .

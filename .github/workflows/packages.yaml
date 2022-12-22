@@ -8,6 +8,10 @@ on:
     paths:
       - .github/workflows/packages.yaml
 
+env:
+  REGISTRY: ghcr.io
+  VERSION: latest
+
 jobs:
   github-actions:
     strategy:
@@ -20,6 +24,21 @@ jobs:
           - app-name: APIs - Beego
             image-name: apis-beego
             working-directory: ./apis/beego
+          - app-name: APIs - Echo
+            image-name: apis-echo
+            working-directory: ./apis/echo
+          - app-name: APIs - Gin
+            image-name: apis-gin
+            working-directory: ./apis/gin
+          - app-name: APIs - Gorilla
+            image-name: apis-gorilla
+            working-directory: ./apis/gorilla
+          - app-name: APIs - HTTP
+            image-name: apis-http
+            working-directory: ./apis/http
+          - app-name: APIs - Revel
+            image-name: apis-revel
+            working-directory: ./apis/revel
     name: ${{ matrix.os.name }} - ${{ matrix.project.app-name }}
     runs-on: ${{ matrix.os.version }}
     steps:
@@ -28,7 +47,7 @@ jobs:
       - name: Log in to the Container registry
         uses: docker/login-action@v2.1.0
         with:
-          registry: ghcr.io
+          registry: ${{ env.registry }}
           username: ${{ github.actor }}
           password: ${{ secrets.GH_TOKEN }}
       - name: Build and push Docker image
@@ -37,5 +56,5 @@ jobs:
           push: true
           context: ${{ matrix.project.working-directory }}
           file: ${{ matrix.project.working-directory }}/Dockerfile
-          tags: ghcr.io/${{ github.actor }}/${{ matrix.project.image-name }}:latest
+          tags: ${{ env.registry }}/${{ github.actor }}/${{ matrix.project.image-name }}:${{ env.VERSION }}
           github-token: ${{ secrets.GH_TOKEN }}

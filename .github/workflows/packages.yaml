@@ -50,7 +50,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.1.0
         with:
-          context: ${{ matrix.project.working-directory }}
           push: true
-          tags: ${{ github.head_ref || github.ref_name }}.${{ steps.datetime.outputs.datetime }}.${{ steps.version.outputs.sha_short }}
-          labels: ${{ matrix.project.image-name }}
+          context: ${{ matrix.project.working-directory }}
+          file: ${{ matrix.project.working-directory }}/Dockerfile
+          tags: ${{ github.actor }}/${{ matrix.project.image-name }}:${{ github.head_ref || github.ref_name }}.${{ steps.datetime.outputs.datetime }}.${{ steps.version.outputs.sha_short }}

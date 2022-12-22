@@ -98,7 +98,7 @@ jobs:
       - name: TimeZone
         uses: szenius/set-timezone@v1.1
         with:
-          timezoneLinux: 'Asia/Ho_Chi_Minh'
+          timezoneLinux: "Asia/Ho_Chi_Minh"
       - name: Get Date & Time
         id: datetime
         run: |

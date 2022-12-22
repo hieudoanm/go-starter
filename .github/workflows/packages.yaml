@@ -1,0 +1,54 @@
+name: GitHub Packages
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  github-actions:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - name: Ubuntu
+            version: ubuntu-latest
+        project:
+          - name: APIs - Beego
+            image-name: apis-beego
+            working-directory: ./apis/beego
+    name: ${{ matrix.os.name }} - ${{ matrix.go.name }} - ${{ matrix.project.app-name }}
+    runs-on: ${{ matrix.os.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Branch
+        run: echo ${{ github.head_ref || github.ref_name }}
+      - name: TimeZone
+        uses: szenius/set-timezone@v1.1
+        with:
+          timezoneLinux: "Asia/Ho_Chi_Minh"
+      - name: Get Date & Time
+        id: datetime
+        run: |
+          echo $(date +'%Y-%m-%dT%H:%M:%S')
+          echo "::set-output name=datetime::$(date +'%Y%m%d.%H%M%S')"
+      - name: Get Commit SHA
+        id: version
+        run: |
+          echo $(git rev-parse --short HEAD)
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ${{ project.working-directory }}
+          push: true
+          tags: ${{ github.head_ref || github.ref_name }}.${{ steps.datetime.outputs.datetime }}.${{ steps.version.outputs.sha_short }}
+          labels: ${{ matrix.project.image-name }}

@@ -25,22 +25,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Branch
-        run: echo ${{ github.head_ref || github.ref_name }}
-      - name: TimeZone
-        uses: szenius/set-timezone@v1.1
-        with:
-          timezoneLinux: "Asia/Ho_Chi_Minh"
-      - name: Get Date & Time
-        id: datetime
-        run: |
-          echo $(date +'%Y-%m-%dT%H:%M:%S')
-          echo "::set-output name=datetime::$(date +'%Y%m%d.%H%M%S')"
-      - name: Get Commit SHA
-        id: version
-        run: |
-          echo $(git rev-parse --short HEAD)
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Log in to the Container registry
         uses: docker/login-action@v2.1.0
         with:
@@ -53,4 +37,5 @@ jobs:
           push: true
           context: ${{ matrix.project.working-directory }}
           file: ${{ matrix.project.working-directory }}/Dockerfile
-          tags: ${{ github.actor }}/${{ matrix.project.image-name }}:${{ github.head_ref || github.ref_name }}.${{ steps.datetime.outputs.datetime }}.${{ steps.version.outputs.sha_short }}
+          tags: ghcr.io/${{ github.actor }}/${{ matrix.project.image-name }}:latest
+          github-token: ${{ secrets.GH_TOKEN }}

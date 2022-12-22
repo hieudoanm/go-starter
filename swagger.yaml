@@ -1,22 +1,10 @@
 basePath: /
 consumes:
-- application/json
+  - application/json
 definitions:
   ErrorResponse:
-    properties:
-      message:
-        description: Message
-        type: string
-        x-go-name: Message
-    type: object
     x-go-package: gin-starter
   HelloResponse:
-    properties:
-      hello:
-        description: Hello
-        type: string
-        x-go-name: Hello
-    type: object
     x-go-package: gin-starter
 host: localhost:8080
 info:
@@ -28,23 +16,23 @@ paths:
       description: Delete
       operationId: Delete
       responses:
-        "200":
+        '200':
           description: HelloResponse
           schema:
             $ref: '#/definitions/HelloResponse'
-        "400":
+        '400':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
@@ -52,23 +40,23 @@ paths:
       description: Get
       operationId: Get
       responses:
-        "200":
+        '200':
           description: HelloResponse
           schema:
             $ref: '#/definitions/HelloResponse'
-        "400":
+        '400':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
@@ -76,23 +64,23 @@ paths:
       description: Patch
       operationId: Patch
       responses:
-        "200":
+        '200':
           description: HelloResponse
           schema:
             $ref: '#/definitions/HelloResponse'
-        "400":
+        '400':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
@@ -100,23 +88,23 @@ paths:
       description: Post
       operationId: Post
       responses:
-        "200":
+        '200':
           description: HelloResponse
           schema:
             $ref: '#/definitions/HelloResponse'
-        "400":
+        '400':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
@@ -124,29 +112,29 @@ paths:
       description: Put
       operationId: put
       responses:
-        "200":
+        '200':
           description: HelloResponse
           schema:
             $ref: '#/definitions/HelloResponse'
-        "400":
+        '400':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "401":
+        '401':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "404":
+        '404':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
-        "500":
+        '500':
           description: ErrorResponse
           schema:
             $ref: '#/definitions/ErrorResponse'
 produces:
-- application/json
+  - application/json
 schemes:
-- http
-- https
-swagger: "2.0"
+  - http
+  - https
+swagger: '2.0'
